@@ -14,8 +14,7 @@ export default function fetch(options, axiosConfig = { baseURL: '', authorizatio
       if (stores.getters.getUrlData && stores.getters.getUrlData !== null) {
         axios.defaults.baseURL = stores.getters.getUrlData;
       } else {
-        axios.defaults.baseURL = 'http://221.232.139.68:8080';
-        // axios.defaults.baseURL = 'http://117.34.112.55:8070';
+        axios.defaults.baseURL = window.getClientObj().sysConf.url;
       }
     }
     let author = '';

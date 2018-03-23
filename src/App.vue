@@ -37,7 +37,7 @@
           <transition :name="viewTransition" :css="!!direction">
             <router-view transition-mode="out-in" class="router-view"></router-view>
           </transition>
-        <Maintabar v-if="this.$route.path !== '/login'" slot="bottom"></Maintabar>
+        <Maintabar v-if="showMaintabar" slot="bottom"></Maintabar>
       </view-box>
     </drawer>
   </div>
@@ -115,6 +115,15 @@ export default {
     }
   },
   computed: {
+    showMaintabar() {
+      if (this.$route.path == "/login") {
+        return false;
+      } else if (this.$route.meta.hideMaintabar) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     ...mapGetters(["userInfo"]),
     showDrawer() {
       if (this.$route.meta.requireMenue) return true;
@@ -142,9 +151,13 @@ export default {
       }
     },
     leftOptions() {
-      return {
-        showBack: !this.$route.meta.requireMenue
-      };
+      if (this.$route.meta.requireleftMenue) {
+        return { showBack: false };
+      } else {
+        return {
+          showBack: !this.$route.meta.requireMenue
+        };
+      }
     },
     rightOptions() {
       return {

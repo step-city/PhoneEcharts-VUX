@@ -3,9 +3,13 @@
 </template>
 
 <style>
-.echarts {
+/* .echarts {
   width: 600px;
   height: 400px;
+} */
+.echarts {
+  width: auto;
+  height: 450px;
 }
 </style>
 
@@ -51,6 +55,7 @@ const MOUSE_EVENTS = [
 ]
 export default {
   props: {
+    events: { type: Object },
     options: Object,
     theme: [String, Object],
     initOptions: Object,
@@ -179,6 +184,12 @@ export default {
         window.addEventListener('resize', this.__resizeHanlder)
       }
       this.chart = chart
+       if (this.events) this.bindEvents()
+    },
+     bindEvents () {
+      Object.keys(this.events).forEach(event => {
+        this.chart.on(event, this.events[event])
+      })
     },
     destroy () {
       if (this.autoResize) {

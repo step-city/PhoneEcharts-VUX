@@ -72,7 +72,9 @@ router.beforeEach((to, from, next) => {
     isLoading: true
   })
   if (JSON.parse(localStorage.getItem('userInfo')) == null && to.path !== '/login') {
-    router.replace("/login");
+    if (!to.meta.requireToken) {
+      router.replace("/login");
+    }
   }
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)
@@ -131,8 +133,6 @@ new Vue({
 let token = cookie.get('Author')
 if (token) {
   store.commit("COM_Token", token)
-} else {
-  router.replace("/login")
 }
 
 
