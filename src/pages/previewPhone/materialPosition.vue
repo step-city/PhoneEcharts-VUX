@@ -77,13 +77,11 @@ export default {
     };
   },
   methods: {
-    _randerPage(params) {
-      let _this = this;
-      let mviewConf = this.outPutConf.mviewConf;
-    },
     _loadPage() {
       let _this = this;
       let OrderId = this.$route.params.id;
+      let OrgId = this.$route.params.orgid;
+      
       fetch(
         {
           url: "/Token",
@@ -98,7 +96,10 @@ export default {
       )
         .then(data => {
           this.access_token = "Bearer " + data.access_token;
-          let inputArr = [{ key: "Id", op: "EQ", value: OrderId }];
+          let inputArr = [
+            { key: "Id", op: "EQ", value: OrderId },
+            { key: "OrgId", op: "EQ", value: OrgId }
+          ];
           this.mainInput.addqueryConditionItem(inputArr);
           fetch(
             {
@@ -114,12 +115,12 @@ export default {
           ).then(data => {
             if (data.success) {
               let mConfigs = data.result.data[0];
-
+              if (mConfigs==[]) {
+                _this.htmlContent='<p style="text-algin:center">暂无数据</p>'
+              }
               if (_this.options.series[0].data.length === 0) {
                 _this.afterLoad(mConfigs);
               }
-              // this.outPutConf=JSON.parse(mConfigs.extensionOne,util.dealFunction).outPutConf;
-              // this._loadData(OrderId);
             } else {
               this.$vux.toast.show({
                 text: "失败！" + data.error.message
@@ -199,7 +200,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<!-- Add "scoped" attribute to limit CnSS to this component only -->
 <style scoped>
 .content {
   position: absolute;

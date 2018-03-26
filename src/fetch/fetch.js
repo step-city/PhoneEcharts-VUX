@@ -14,7 +14,7 @@ export default function fetch(options, axiosConfig = { baseURL: '', authorizatio
       if (stores.getters.getUrlData && stores.getters.getUrlData !== null) {
         axios.defaults.baseURL = stores.getters.getUrlData;
       } else {
-        axios.defaults.baseURL = window.getClientObj().sysConf.url;
+        axios.defaults.baseURL = window.getClientObj().sysConf.baseUrl;
       }
     }
     let author = '';

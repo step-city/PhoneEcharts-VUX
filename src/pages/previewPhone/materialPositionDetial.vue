@@ -7,10 +7,14 @@
       <tab-item @on-item-click="onItemClick">本月</tab-item>
       <tab-item @on-item-click="onItemClick">本季</tab-item>
  </tab>
-  <div v-if="options.series[0].data.length===0" v-html="htmlContent" class="content"></div>
-  <div v-else style="position:relative;margin-top:25px;">
+  <!-- <div v-show="loading" v-html="htmlContent" class="content">
+  </div> -->
+  <div style="position:relative;margin-top:25px;">
     <yl-echarts :options="options" ref="chartref" auto-resize>
     </yl-echarts>
+    <div v-show="dataModel.length==0" class="v-charts-data-empty">
+    暂无数据
+  </div>
   </div>
 </div>
 </template>
@@ -28,6 +32,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       orderModel: {
         firstKeys: "BeginDate,EndDate,V_Col7",
         firstValues: "",
@@ -37,7 +42,7 @@ export default {
         secondOperates: "",
         secondValues: ""
       },
-      htmlContent: '<p style="text-algin:center">加载中，请稍后...</p>',
+      // htmlContent: '<p style="text-algin:center">加载中，请稍后...</p>',
       outPutConf: {},
       dataModel: {},
       access_token: "",
@@ -154,6 +159,7 @@ export default {
       ).then(data => {
         if (data.success) {
           let mConfigs = data.result.items[0];
+          _this.dataModel = mConfigs;
           if (data.result.items.length > 0) {
             _this.afterLoad(mConfigs);
           }
@@ -195,7 +201,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.content {
+.v-charts-data-empty {
   position: absolute;
   left: 0;
   right: 0;
@@ -204,7 +210,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #888;
+  font-size: 14px;
 }
 </style>
 

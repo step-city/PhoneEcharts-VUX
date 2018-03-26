@@ -27,6 +27,10 @@ import rebarCenter from '../pages/rebarAccounting/rebarCenter.vue'
 import materialPosition from '../pages/previewPhone/materialPosition.vue'
 import materialPositionDetial from '../pages/previewPhone/materialPositionDetial.vue'
 
+import quantityQC from '../pages/previewPhone/quantityQC.vue'
+import rebarRecieveDetial from '../pages/previewPhone/rebarRecieveDetial.vue'
+
+
 const routes = [
       { path: '/', redirect: "/login" },//重定向  
       { path: '/login', component: Login },
@@ -60,8 +64,12 @@ const routes = [
       { path: '/rebarAnalysis', component: rebarAnalysis, name: '钢筋节超分析', meta: { requireMenue: false } },
       { path: '/rebarCenter', component: rebarCenter, name: '钢筋加工中心分析', meta: { requireMenue: false } },
 
-      {path: '/previewPhone/:id',component: materialPosition,name: '料位监控', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
+      {path: '/previewPhone/:id/:orgid',component: materialPosition,name: '料位监控', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
       {path: '/materialPositionDetial',component: materialPositionDetial,name: '图表查看', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:false,requireToken:true }}, 
+
+      {path: '/quantityPhone/:id',component: quantityQC,name: '成品详情', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
+      {path: '/rebarPhone/:id/:orgid',component: rebarRecieveDetial,name:'钢筋收料明细', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
+
 
       { path: '/*', component: Page404, name: '页面不存在', meta: { requireMenue: false } }
 ];
