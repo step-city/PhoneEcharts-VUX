@@ -1,4 +1,6 @@
 
+@import './setArrow';
+
 .weui-btn_plain-primary {
     color: #19D5FD;
     border: 1px solid #1aad19;
@@ -42,4 +44,18 @@
         overflow: hidden;
         font-size: 12px;
       }
+    .tablelist-name {
+        text-align:left;
+        padding-left:6px;
+    }
+    .cell_right__ft { //箭头符号
+        &:after {
+            content: "";
+            .setArrow(right, 6px, #666, 2px);
+            position: absolute;
+            top: 50%;
+            margin-top: -2px;
+            right: 4px;
+        }
+    }
 }

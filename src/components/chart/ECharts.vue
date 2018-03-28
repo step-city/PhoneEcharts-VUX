@@ -100,7 +100,13 @@ export default {
   watch: {
     group (group) {
       this.chart.group = group
-    }
+    },
+    events: {
+      deep: true,
+      handler () {
+        this.createEventProxy()
+      }
+    },
   },
   methods: {
     // provide a explicit merge option method
@@ -184,7 +190,27 @@ export default {
         window.addEventListener('resize', this.__resizeHanlder)
       }
       this.chart = chart
-       if (this.events) this.bindEvents()
+      this.createEventProxy()
+      //  if (this.events) this.bindEvents()
+    },
+    createEventProxy () {
+      // 只要用户使用 on 方法绑定的事件都做一层代理，
+      // 是否真正执行相应的事件方法取决于该方法是否仍然存在 events 中
+      // 实现 events 的动态响应
+      const self = this
+      const keys = Object.keys(this.events || {})
+      keys.length && keys.forEach(ev => {
+        if (this.registeredEvents.indexOf(ev) === -1) {
+          this.registeredEvents.push(ev)
+          this.chart.on(ev, (function (ev) {
+            return function (...args) {
+              if (ev in self.events) {
+                self.events[ev].apply(null, args)
+              }
+            }
+          })(ev))
+        }
+      })
     },
      bindEvents () {
       Object.keys(this.events).forEach(event => {
@@ -204,6 +230,7 @@ export default {
     }
   },
   created () {
+    this.registeredEvents = []    
     this.$watch('options', options => {
       if (!this.chart && options) {
         this.init()

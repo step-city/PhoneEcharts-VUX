@@ -130,7 +130,7 @@ export default {
         },
         {
           baseURL: "http://1.195.30.81:8989",
-          authorization: 'Bearer 0-YYdUiT0V06r2pKcLwl23ebgXHy8rLxU7NgZWa9bRauEmbRq-Rgi3z8tKPs2r0TH4QIfDBM5tGQAgIlLmXGrLWxshAocSs5XDlrmCxweViLuW8WLPN0PpLCNx-rU0SuspFhx-06XbhdqKw-mngJOppxoRmGblYGorZ3-5wet6X91o5dCPWDvdOkyYZ6QGtUwl3MHEzx-ZObj3vzcIuF3gQ6DHob9VLz-xHFN5FezlP3c6EJRd_K5Zk2RKCZNn2-M8y_nZhvKgt4NpbAlGXmG8b1QNZm01G3feoiv-LfvNKBzgtDf7LOAL6eJ3bN5nxEaGqpsPC0oPfHbLBRuf_ZANiUGH7RPZqQRJ7YhwN_Ot-61WFKHdc8DBqGpMEYz-1p5m9H6YAH5tdKqa4BZhk3BrD6d07yeFkJTCFU6izzMQ1d64KOtaZmRd4PhWDnH5oF-6dlmQ-hd48qibe3l-2o8EAbCdUzdJfq3NwFKkmvlUZAuZ2R5OoxFF-s1J72psvAXrrY_2c5CYe7GHJfN_7R0W6xvtw0tcfQBx0aIHacOPQ',
+          authorization: 'Bearer yctPp1WZnqc7gIvvsOhkVRFv_ImWMyOkJxJymX6KfgzQAXtAmU15kNW8hB5ZPHRg3oNpag9lbkAYUUoVG4wkB1qMDO6qLatnPXHnQFfV7sE3fRHcBO8-fpxLtAvn5rB4HCeXzWoPsHzMt76-hZyS_lLqdIQLUVCTcRarPDt7N8PRYCZeGTJYdGcTA5wh5Kyf4k-WNFNbb9AINdcilZlOyEwqH74vW4zF9CZya3irLE9OoDUF2HN_3wf-5yt_H1gk-bZAcsQNww_tblk2dP4820g7Qe4h1F9Kq-ryO6DFqGMW5tlhjHW8h0QGOkBk1KMhge8Djz3hmPnGow4HU0xYRP_qYvg9w5C2vilAfcj0aejgj07qPGqqTJQ8hXwgXYr0_X3p4Jr6eBWxSdS-fcq4tA_4cTeWKsSI0kBhpfOObk6YzJOGoxCcDsyCST20vNJOIvVBxIwzllz9DO8Qng9x6tqJnohkcddW6-a6qOurbVJ3DYIXNsBDOlYBOv5n_ZMXux9hY-c8qcvGL-3Ihi6UOepHMpuOdc9TkHdr4EA_71YHZjZUvnEbWG_zLalUxu5h',
           formatData: false
         }
       ).then(data => {
@@ -198,7 +198,7 @@ export default {
           if (data.d_Col21 > maxNum) {
             maxNum = data.d_Col21;
           }
-          _this.options.xAxis.data.push("[" + data.v_Col6 + "]-" + data.v_Col7);
+          _this.options.xAxis.data.push("[" + data.v_Col6 + "]-" + data.v_Col10);
           _this.options.series[0].data.push({
             value: data.d_Col20,
             symbol: symbols[1],

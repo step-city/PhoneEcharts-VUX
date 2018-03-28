@@ -2,10 +2,13 @@
 <div  class="print-responsive">
   <meta charset="UTF-8"  name="viewport" content="width=device-width,user-scalable=no, initial-scale=1, shrink-to-fit=no, minimum-scale=0.5, maximum-scale=2.0,minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <div v-if="options.series[0].data.length===0" v-html="htmlContent" class="content"></div>
-  <div v-else style="position:relative;margin-top:25px;">
+  <!-- <div v-if="options.series[0].data.length===0" v-html="htmlContent" class="content"></div> -->
+  <div style="position:relative;margin-bottom:15px;">
     <yl-echarts :options="options" ref="chartref" auto-resize :events="chartEvents">
     </yl-echarts>
+    <div v-show="dataModel.length==0" class="v-charts-data-empty">
+    暂无数据
+  </div>
   </div>
 </div>
 </template>
@@ -23,7 +26,8 @@ export default {
   },
   data() {
     return {
-      htmlContent: '<p style="text-algin:center">加载中，请稍后...</p>',
+      chartEvents:{},
+      // htmlContent: '<p style="text-algin:center">加载中，请稍后...</p>',
       outPutConf: {},
       dataModel: {},
       access_token: "",
@@ -115,9 +119,7 @@ export default {
           ).then(data => {
             if (data.success) {
               let mConfigs = data.result.data[0];
-              if (mConfigs==[]) {
-                _this.htmlContent='<p style="text-algin:center">暂无数据</p>'
-              }
+              _this.dataModel=data.result.data;
               if (_this.options.series[0].data.length === 0) {
                 _this.afterLoad(mConfigs);
               }
@@ -146,7 +148,7 @@ export default {
       var labelSetting = {
         normal: {
           show: true,
-          position: "outside",
+          position: "inside",
           textStyle: {
             fontSize: 12,
             fontFamily: "Arial"
@@ -168,7 +170,7 @@ export default {
       if (data.d_Col21 > maxNum) {
         maxNum = data.d_Col21;
       }
-      _this.options.xAxis.data.push("[" + data.v_Col6 + "]-" + data.v_Col7);
+      _this.options.xAxis.data.push("[" + data.v_Col6 + "]-" + data.v_Col10);
       _this.options.series[0].data.push({
         value: data.d_Col20,
         symbol: symbols[1],
@@ -189,11 +191,13 @@ export default {
     let _this = this;
     this.chartEvents = {
       click: function(e) {
-        let str = e.name.substring(e.name.indexOf("-") + 1);
+        if (e.name) {
+       let str = e.name.substring(e.name.indexOf("-") + 1);
         _this.$router.push({
           name: "图表查看",
           params: { name: str, token: _this.access_token }
         });
+        }
       }
     };
   }
@@ -202,7 +206,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CnSS to this component only -->
 <style scoped>
-.content {
+.v-charts-data-empty {
   position: absolute;
   left: 0;
   right: 0;
@@ -211,7 +215,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #888;
+  font-size: 14px;
 }
 </style>
 

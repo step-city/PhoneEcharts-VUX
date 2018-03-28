@@ -20,7 +20,7 @@
         <tbody v-show="detail.length !== 0">
           <tr :class="{'vux-tap-active': true,'weui-cell_access': true}" v-for="(list,index) in detail" :key="index" 
             :style="{'background-color':list.jcbl>1?'red':''}">
-            <td v-text="list.name" @click="_clickName"></td>
+            <td v-text="list.name" @click="_clickName" class="tablelist-name"></td>
             <td v-text="list.quantity"></td>
             <td v-text="list.receiveQuantity"></td>
             <td v-text="list.jcblStr"></td>

@@ -30,6 +30,8 @@ import materialPositionDetial from '../pages/previewPhone/materialPositionDetial
 import quantityQC from '../pages/previewPhone/quantityQC.vue'
 import rebarRecieveDetial from '../pages/previewPhone/rebarRecieveDetial.vue'
 
+import materialPrice from '../pages/previewPhone/materialPrice.vue'
+import materialPriceDetial from '../pages/previewPhone/materialPriceDetial'
 
 const routes = [
       { path: '/', redirect: "/login" },//重定向  
@@ -70,6 +72,10 @@ const routes = [
       {path: '/quantityPhone/:id',component: quantityQC,name: '成品详情', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
       {path: '/rebarPhone/:id/:orgid',component: rebarRecieveDetial,name:'钢筋收料明细', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
 
+      {path: '/stockPhone',component: stockInventory,name: '机楼料仓库存图', meta: { hideMaintabar: true,requireMenue: false,requireleftMenue:true,requireToken:true }}, 
+
+      {path: '/materialPhone',component: materialPrice,name: '材料价格走势', meta: { requireMenue: false }}, 
+      {path: '/materialPriceDetial',component: materialPriceDetial,name: '走势图表查看', meta: { requireMenue: false }}, 
 
       { path: '/*', component: Page404, name: '页面不存在', meta: { requireMenue: false } }
 ];

@@ -92,6 +92,11 @@ export default {
               link: "/deliveryReport",
               label: "发料统计",
               src: require("../../assets/monthcount.png")
+            },
+            {
+              link: "/materialPhone",
+              label: "材料价格走势",
+              src: require("../../assets/prepared.png")
             }
           ];
         break;

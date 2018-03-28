@@ -2,7 +2,6 @@
 <div >
   <meta charset="UTF-8"  name="viewport" content="width=device-width,user-scalable=no, initial-scale=1, shrink-to-fit=no, minimum-scale=0.5, maximum-scale=2.0,minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <div v-if="list==''" v-html="htmlContent" class="loading"></div>
 <div class="header">
     <div class="line" v-for="item in list" :key="item.id">
         <div class="label">{{item.label}}</div>
@@ -14,7 +13,7 @@
          <div class="line" >
             <div class="label">供应商</div> <div class="value">{{item.supplierName}}</div>
          </div>
-          <div class="line" >
+          <div class="line">
             <div class="label">数量</div> <div class="value">{{item.quantity}}</div>
          </div>
           <div class="line" >
@@ -23,10 +22,11 @@
           <div class="line" >
             <div class="label">收料类型</div> <div class="value">{{item.datatype==1?'PDA进料':item.datatype==2?'磅单进料':'手工进料'}}</div>
          </div>
-       
     </div>
-  
 </div>
+  <div v-show="dataModel.length==0" class="v-charts-data-empty">
+    暂无数据
+  </div>
 </div>
 </template>
 <script type="text/babel">
@@ -93,6 +93,7 @@ export default {
           ).then(data => {
             if (data.success) {
               let mConfigs = data.result.items[0];
+              _this.dataModel=mConfigs;
               _this.afterLoad(mConfigs);
             } else {
               this.$vux.toast.show({
@@ -140,7 +141,7 @@ export default {
 <style scoped>
 .header {
     border: slategrey 1px solid;
-    font-size:14px;
+    font-size:16px;
     font-weight:500;
     padding:5px;
 
@@ -159,7 +160,7 @@ export default {
 
 .content {
     border: slategrey 1px solid;
-    font-size:14px;
+    font-size:15px;
     font-weight:500;
     padding:5px;
    
@@ -175,11 +176,12 @@ export default {
     text-align: left;
     width: 100px;
 }
-.content  .dataObject .line .content{
+.content  .dataObject .line .value{
     text-align: right;
-    flex:1
+    flex:1;
+    color: #b2b2b2;
 }
-.loading {
+.v-charts-data-empty {
   position: absolute;
   left: 0;
   right: 0;
@@ -188,7 +190,9 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.7);
+  color: #888;
+  font-size: 14px;
 }
 </style>
 

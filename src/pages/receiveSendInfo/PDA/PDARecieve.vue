@@ -23,7 +23,7 @@
       </thead>
       <tbody v-if="arryList.length !== 0">
         <tr :class="{'vux-tap-active': true,'weui-cell_access': true}" v-for="(list,index) in arryList" :key="index">
-          <td v-text="list.tjClassName" :style="nameSize" @click="_clickName"></td>
+          <td v-text="list.tjClassName" :style="nameSize" @click="_clickName" class="tablelist-name"></td>
           <td v-text="list.lastPanQuantity"></td>
           <td v-text="list.klReceiveQuantity"></td>
           <td v-text="list.klDeliveryQuantity"></td>

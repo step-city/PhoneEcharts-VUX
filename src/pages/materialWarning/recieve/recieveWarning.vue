@@ -11,7 +11,7 @@
       <x-table class="tablelist" full-bordered>
         <thead>
           <tr class="tablelist-th">
-            <th>类名称</th>
+            <th>类名称1</th>
             <th>计划总量</th>
             <th>开累收料</th>
             <th>待收数量</th>
@@ -21,7 +21,7 @@
         <tbody v-show="detail.length !== 0">
           <tr :class="{'vux-tap-active': true,'weui-cell_access': true}" v-for="(list,index) in detail" :key="index" 
             :style="{'background-color':list.jcbl>1?'red':''}">
-            <td v-text="list.tjClassName" :style="nameSize" @click="_clickName"></td>
+            <td v-text="list.tjClassName" :style="nameSize" @click="_clickName" class="tablelist-name"></td>
             <td v-text="list.planQuantity"></td>
             <td v-text="list.receiveQuantity"></td>
             <td v-text="list.planQuantity-list.receiveQuantity"></td>

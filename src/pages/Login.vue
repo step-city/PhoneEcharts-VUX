@@ -79,6 +79,7 @@ export default {
       inputPassWord: "aaa",
       loginForm: {
         userName: "wuyaoqi",
+        // userName: "lzy",
         passWord: "",
         grant_type: "password",
         ylClientId: "",
