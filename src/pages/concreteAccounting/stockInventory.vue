@@ -39,8 +39,7 @@ export default {
         client_secret: "8F3D3BF3E3EA2895CD7E8E6173385AC57A39C27870714B66",
         grant_type: "client_credentials"
       },
-      dataModel: [],
-      selectValue: "",
+      selectValue: "Z1",
       list: [{ key: "Z1", value: "一号线" }, { key: "Z2", value: "二号线" }],
       options: {
         tooltip: {},
@@ -106,7 +105,7 @@ export default {
         ]
       },
       orderModel: {
-        firstKeys: "OrgId",
+        firstKeys: "OrgId,V_Col6",
         firstValues: "",
         procName: "Pr_CommonExecuteSql",
         procType: 0,
@@ -140,7 +139,7 @@ export default {
           value: data.result[0].text
         });
           this.selectStation=data.result[0].id
-          this.orderModel.firstValues ="$" + data.result[0].id + "$";
+          this.orderModel.firstValues ="$" + data.result[0].id + "$,$"+this.selectValue+"$";
           this._initEchart();
           }
         },
@@ -150,13 +149,14 @@ export default {
       );
     },
     _onChange(val){
-        this.orderModel.firstValues ="$" + val + "$";
+        this.orderModel.firstValues ="$" + val + "$,$"+this.selectValue+'$';
         this._initEchart()
     },
     onChange(val) {
-      this.afterLoad(val);
+      this.orderModel.firstValues ="$"+this.selectStation+"$,$" + val + "$";
+      this._initEchart()
     },
-    afterLoad(option) {
+    afterLoad(dataModel) {
       let _this = this;
       _this.options.series[0].label = {};
       _this.options.series[0].markLine = {};
@@ -193,8 +193,7 @@ export default {
       _this.options.series[0].label = labelSetting;
       _this.options.series[0].markLine = markLineSetting;
       var maxNum = 0;
-      _this.dataModel.map(function(data) {
-        if (data.v_Col8 == option) {
+      dataModel.map(function(data) {
           if (data.d_Col21 > maxNum) {
             maxNum = data.d_Col21;
           }
@@ -211,7 +210,6 @@ export default {
           });
           _this.options.series[2].data.push(data.d_Col22);
           _this.options.series[3].data.push(data.d_Col23);
-        }
       });
       _this.options.yAxis.max = maxNum;
     },
@@ -242,7 +240,6 @@ export default {
     },
     _initEchart() {
       var _this = this;
-      _this.dataModel = [];
       let params = _this.orderModel;
       fetch(
         {
@@ -259,10 +256,10 @@ export default {
         data => {
           if (data.success) {
             if (data.result.resultType === 0) {
-              _this.dataModel = data.result.items[0];
-              if (_this.options.series[0].data.length === 0) {
-                _this.afterLoad(_this.selectValue);
-              }
+              let dataModel = data.result.items[0];
+              // if (_this.options.series[0].data.length === 0) {
+                _this.afterLoad(dataModel);
+              // }
             }
           }
         },
@@ -274,7 +271,6 @@ export default {
   },
   created() {
     this._fetchToken();
-    this.selectValue = "Z1";
   },
   mounted() {
 

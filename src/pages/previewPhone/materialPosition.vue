@@ -83,6 +83,7 @@ export default {
   methods: {
     _loadPage() {
       let _this = this;
+      _this.dataModel={}
       let OrderId = this.$route.params.id;
       let OrgId = this.$route.params.orgid;
       
@@ -191,14 +192,11 @@ export default {
     let _this = this;
     this.chartEvents = {
       click: function(e) {
-        if (e.name) {
-       let str = e.name.substring(e.name.indexOf("-") + 1);
         _this.$router.push({
           name: "图表查看",
-          params: { name: str, token: _this.access_token }
+          params: { name: _this.dataModel[0].v_Col7, token: _this.access_token }
         });
         }
-      }
     };
   }
 };
